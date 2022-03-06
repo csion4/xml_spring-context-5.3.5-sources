@@ -60,7 +60,7 @@ import org.springframework.util.StringValueResolver;
  * @see org.springframework.context.ApplicationContextAware
  * @see org.springframework.context.support.AbstractApplicationContext#refresh()
  */
-class ApplicationContextAwareProcessor implements BeanPostProcessor {
+class ApplicationContextAwareProcessor implements BeanPostProcessor {  // ApplicationContextAwareProcessor是一个BeanPostProcessor，我们知道BeanPostProcessor的回调是需要先注入到bean中后扫描到beanPostProcessors缓存中的，但是这里并没有通过类似于@Component主角注入，而是org.springframework.context.support.AbstractApplicationContext.prepareBeanFactory方法中直接添加到beanPostProcessors缓存中的，所以它不是bean
 
 	private final ConfigurableApplicationContext applicationContext;
 

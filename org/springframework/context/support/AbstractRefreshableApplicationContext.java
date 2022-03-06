@@ -124,11 +124,11 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			closeBeanFactory();
 		}
 		try {
-			DefaultListableBeanFactory beanFactory = createBeanFactory(); // 初始化beanFactory，默认使用的是DefaultListableBeanFactory
+			DefaultListableBeanFactory beanFactory = createBeanFactory();  // 初始化beanFactory，默认使用的是DefaultListableBeanFactory
 			beanFactory.setSerializationId(getId());	// 设置序列化id
-			customizeBeanFactory(beanFactory);  //定制bean工厂，设置是否支持bean覆盖和bean的循环依赖
-			loadBeanDefinitions(beanFactory);
-			this.beanFactory = beanFactory;
+			customizeBeanFactory(beanFactory);  // 定制bean工厂，设置是否支持bean覆盖和bean的循环依赖
+			loadBeanDefinitions(beanFactory);	// 这里就是将直接解析出来的xml配置文件中的bean加载到DefaultListableBeanFactory中的beanDefinitionMap缓存中，这是一个map缓存，key是bean的id，value是一个BeanDefinition（bean定义），后面将会依照这个map中的数据来实例化bean；所以这里我们知道有一个beanfactory中包含解析出来的我们配置的bean信息（在beanDefinitionMap中）
+			this.beanFactory = beanFactory;		// 设置当前ApplicationContext中的beanfactory是已经填充了beanDefinition的DefaultListableBeanFactory
 		}
 		catch (IOException ex) {
 			throw new ApplicationContextException("I/O error parsing bean definition source for " + getDisplayName(), ex);
